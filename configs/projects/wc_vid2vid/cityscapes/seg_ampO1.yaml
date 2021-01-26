@@ -166,7 +166,7 @@ data:
     train:
         # Input LMDBs.
         roots:
-            - /mnt/bigdata01/datasets/wc_vid2vid/cityscapes/train/lmdb
+            - /export/home/hluedema/mt_code/imaginaire/projects/wc_vid2vid_cityscapes/train_data/lmbd #/mnt/bigdata01/datasets/wc_vid2vid/cityscapes/train/lmdb
         # Batch size per GPU.
         batch_size: 1
         initial_sequence_length: 4
@@ -179,7 +179,7 @@ data:
     val:
         # Input LMDBs.
         roots:
-            - /mnt/bigdata01/datasets/wc_vid2vid/cityscapes/test/lmdb
+            - /export/home/hluedema/mt_code/imaginaire/projects/wc_vid2vid_cityscapes/train_data/lmbd #/mnt/bigdata01/datasets/wc_vid2vid/cityscapes/test/lmdb
         # Batch size per GPU.
         batch_size: 1
         # If resize_h_w is not given, then it is assumed to be same as crop_h_w.

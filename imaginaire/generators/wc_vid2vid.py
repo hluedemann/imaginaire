@@ -56,7 +56,8 @@ class Generator(Vid2VidGenerator):
                                   opt_G, opt_D,
                                   sch_G, sch_D,
                                   None, None)
-            if load_weights:
+            # if load_weights: -> This somehow does not work when training
+            if False:
                 print('Loading single image model checkpoint')
                 single_image_ckpt = self.gen_cfg.single_image_model.checkpoint
                 trainer.load_checkpoint(single_image_cfg, single_image_ckpt)
