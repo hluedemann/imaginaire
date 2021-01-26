@@ -3,6 +3,7 @@ snapshot_save_epoch: 5
 max_epoch: 400
 logging_iter: 100
 trainer:
+    distributed_data_parallel: apex
     type: imaginaire.trainers.spade
     amp: O1
     model_average: False
@@ -47,7 +48,7 @@ dis_opt:
         step_size: 100
         gamma: 0.01
 gen:
-    type: imaginaire.generators.spade_v2
+    type: imaginaire.generators.spade
     version: v20
     style_dims: 256
     num_filters: 128
@@ -64,7 +65,7 @@ gen:
         num_filters: 64
         kernel_size: 3
 dis:
-    type: imaginaire.discriminators.spade_v2
+    type: imaginaire.discriminators.spade
     kernel_size: 3
     num_filters: 128
     max_num_filters: 512
@@ -76,7 +77,7 @@ dis:
 # Data options.
 data:
     # Name of this dataset.
-    name: 'mannequin'
+    name: 'cityscapes'
     # Which dataloader to use?
     type: imaginaire.datasets.paired_images
     # How many data loading workers per GPU?
@@ -88,28 +89,10 @@ data:
             num_channels: 3
             interpolator: BILINEAR
             normalize: True
-        - seg_maps-densepose:
-            ext: png
-            num_channels: 25
-            interpolator: NEAREST
         - depth_maps-megadepth:
-            ext: png
-            num_channels: 3
-            interpolator: BILINEAR
-        - edge_maps-hed:
-            ext: png
-            num_channels: 1
-            interpolator: BILINEAR
-        - pose_maps-densepose:
-            ext: png
-            num_channels: 3
-            interpolator: NEAREST
-            normalize: True
-        - pose_maps-openpose:
-            ext: png
-            num_channels: 3
-            interpolator: NEAREST
-            normalize: True
+              ext: png
+              num_channels: 3
+              interpolator: BILINEAR
 
     # Which lmdb contains the ground truth image.
     input_image:
@@ -117,36 +100,17 @@ data:
 
     # Which labels to be concatenated as final output label from dataloader.
     input_labels:
-        - seg_maps-densepose
         - depth_maps-megadepth
-        - edge_maps-hed
-        - pose_maps-densepose
-        - pose_maps-openpose
 
     # Train dataset details.
     train:
-        # Input LMDBs.
-        roots:
-            - /mnt/bigdata01/datasets/wc_vid2vid/mannequin/train/lmdb
-        # Batch size per GPU.
-        batch_size: 1
         # Data augmentations to be performed in given order.
         augmentations:
             resize_h_w: 512, 1024
-            # Scale image by factor \in [1, 1+random_scale_limit].
-            random_scale_limit: 0.2
-            # Horizontal flip?
-            horizontal_flip: True
-            # Crop size.
             random_crop_h_w: 512, 512
 
     # Validation dataset details.
     val:
-        # Input LMDBs.
-        roots:
-            - /mnt/bigdata01/datasets/wc_vid2vid/mannequin/test/lmdb
-        # Batch size per GPU.
-        batch_size: 1
         # If resize_h_w is not given, then it is assumed to be same as crop_h_w.
         augmentations:
             resize_h_w: 512, 1024
