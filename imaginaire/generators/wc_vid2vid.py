@@ -56,6 +56,7 @@ class Generator(Vid2VidGenerator):
                                   opt_G, opt_D,
                                   sch_G, sch_D,
                                   None, None)
+
             # if load_weights: -> This somehow does not work when training
             if False:
                 print('Loading single image model checkpoint')
