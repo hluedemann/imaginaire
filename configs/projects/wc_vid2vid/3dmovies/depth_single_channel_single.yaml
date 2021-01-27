@@ -91,7 +91,7 @@ data:
             normalize: True
         - depth:
               ext: png
-              num_channels: 3
+              num_channels: 1
               interpolator: BILINEAR
 
     # Which lmdb contains the ground truth image.

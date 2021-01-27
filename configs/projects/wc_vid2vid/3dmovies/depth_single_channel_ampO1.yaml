@@ -106,7 +106,7 @@ gen:
         partial_conv: False
         only_with_flow: True
     single_image_model:
-        config: 'configs/projects/wc_vid2vid/3dmovies/depth_single.yaml'
+        config: 'configs/projects/wc_vid2vid/3dmovies/depth_single_channel_single.yaml'
 
     embed:
         use_embed: True
@@ -148,13 +148,13 @@ data:
             normalize: True
         - depth:
               ext: png
-              num_channels: 3
+              num_channels: 1
               interpolator: BILINEAR
         - unprojections:
             ext: pkl
             post_aug_ops: convert::imaginaire.model_utils.wc_vid2vid.render::decode_unprojections
 
-    # Which lmdb contains the ground truth image.
+    # Which lmdb contains the ground truth image.git
     input_image:
         - images
 
@@ -166,7 +166,7 @@ data:
     train:
         # Input LMDBs.
         roots:
-            - /export/home/hluedema/mt_code/imaginaire/projects/wc_vid2vid_3Dmovies/train_data/lmbd
+            - /export/home/hluedema/mt_code/imaginaire/projects/wc_vid2vid_3Dmovies/train_data_single_channel/lmdb
         # Batch size per GPU.
         batch_size: 1
         initial_sequence_length: 4
@@ -179,7 +179,7 @@ data:
     val:
         # Input LMDBs.
         roots:
-            - /export/home/hluedema/mt_code/imaginaire/projects/wc_vid2vid_3Dmovies/train_data/lmdb
+            - /export/home/hluedema/mt_code/imaginaire/projects/wc_vid2vid_3Dmovies/train_data_single_channel/lmdb
         # Batch size per GPU.
         batch_size: 1
         # If resize_h_w is not given, then it is assumed to be same as crop_h_w.
@@ -207,7 +207,7 @@ test_data:
             normalize: True
         - depth:
               ext: png
-              num_channels: 3
+              num_channels: 1
               interpolator: BILINEAR
         - unprojections:
             ext: pkl
