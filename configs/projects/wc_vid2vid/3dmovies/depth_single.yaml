@@ -89,9 +89,9 @@ data:
             num_channels: 3
             interpolator: BILINEAR
             normalize: True
-        - depth_maps-megadepth:
+        - depth:
               ext: png
-              num_channels: 3
+              num_channels: 1
               interpolator: BILINEAR
 
     # Which lmdb contains the ground truth image.
@@ -100,7 +100,7 @@ data:
 
     # Which labels to be concatenated as final output label from dataloader.
     input_labels:
-        - depth_maps-megadepth
+        - depth
 
     # Train dataset details.
     train:
