@@ -231,7 +231,7 @@ class BaseDataset(data.Dataset):
         """
         transform_list = [transforms.ToTensor()]
         if normalize:
-            if data_type == "depth":
+            if data_type == 'depth':
                 transform_list.append(
                     transforms.Normalize((0.5),
                                          (0.5)))
