@@ -146,16 +146,17 @@ data:
         initial_sequence_length: 4
         max_sequence_length: 16        
         augmentations:
-            resize_smallest_side: 512
-            random_scale_limit: 0.2
+            # resize_smallest_side: 512
+            # random_scale_limit: 0.2
             horizontal_flip: True
-            random_crop_h_w: 512, 1024
+            resize_h_w: 400, 940
+            # random_crop_h_w: 512, 1024
     val:        
         roots:
             - /export/scratch/hluedema/3dmovies/sequenceDataSet/sequence_data/lmdb
         batch_size: 1        
         augmentations:            
-            resize_h_w: 512, 1024
+            resize_h_w: 400, 940 
             horizontal_flip: False
 
 # Inference options.
@@ -189,5 +190,5 @@ test_data:
             - /export/scratch/hluedema/3dmovies/sequenceDataSet/sequence_data/lmdb #projects/vid2vid/test_data/cityscapes
         batch_size: 1        
         augmentations:            
-            resize_h_w: 512, 1024
+            resize_h_w: 400, 940 
             horizontal_flip: False
