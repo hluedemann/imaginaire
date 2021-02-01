@@ -121,7 +121,7 @@ data:
     num_frames_G: 3
     num_frames_D: 3
 
-    num_workers: 4
+    num_workers: 1
     input_types:
         - images:
             ext: jpg
@@ -132,7 +132,7 @@ data:
             ext: png
             num_channels: 1
             interpolator: NEAREST
-            normalize: True
+            normalize: False 
     
     input_image:
         - images
@@ -149,14 +149,14 @@ data:
             # resize_smallest_side: 512
             # random_scale_limit: 0.2
             horizontal_flip: True
-            resize_h_w: 400, 940
+            resize_h_w: 512, 1024
             # random_crop_h_w: 512, 1024
     val:        
         roots:
             - /export/scratch/hluedema/3dmovies/sequenceDataSet/sequence_data/lmdb
         batch_size: 1        
         augmentations:            
-            resize_h_w: 400, 940 
+            resize_h_w: 512, 1024 
             horizontal_flip: False
 
 # Inference options.
@@ -165,7 +165,7 @@ pretrained_weight: 1b2M5rU740vBurLQ9iDP2kb4sP5HAb-Jx
 test_data:
     name: '3dmovies'
     type: imaginaire.datasets.paired_videos
-    num_workers: 4
+    num_workers: 1
     paired: True    
     input_types:
         - depth:
@@ -177,7 +177,7 @@ test_data:
             ext: jpg
             num_channels: 3
             interpolator: BILINEAR
-            normalize: True
+            normalize: False
 
     input_image:
         - images
@@ -190,5 +190,5 @@ test_data:
             - /export/scratch/hluedema/3dmovies/sequenceDataSet/sequence_data/lmdb #projects/vid2vid/test_data/cityscapes
         batch_size: 1        
         augmentations:            
-            resize_h_w: 400, 940 
+            resize_h_w: 512, 1024 
             horizontal_flip: False
