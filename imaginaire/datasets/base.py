@@ -176,7 +176,7 @@ class BaseDataset(data.Dataset):
         self.transform = {}
         for data_type in self.image_data_types:
             normalize = self.normalize[data_type]
-            self.transform[data_type] = self._get_transform(normalize)
+            self.transform[data_type] = self._get_transform(normalize, data_type)
 
         # Initialize handles.
         self.sequence_lists = []  # List of sequences per dataset root.
@@ -220,7 +220,7 @@ class BaseDataset(data.Dataset):
         r"""Entry function for dataset."""
         raise NotImplementedError
 
-    def _get_transform(self, normalize):
+    def _get_transform(self, normalize, data_type):
         r"""Convert numpy to torch tensor.
 
         Args:
@@ -231,9 +231,14 @@ class BaseDataset(data.Dataset):
         """
         transform_list = [transforms.ToTensor()]
         if normalize:
-            transform_list.append(
-                transforms.Normalize((0.5, 0.5, 0.5),
-                                     (0.5, 0.5, 0.5)))
+            if data_type == "depth":
+                transform_list.append(
+                    transforms.Normalize((0.5),
+                                         (0.5)))
+            else:
+                transform_list.append(
+                    transforms.Normalize((0.5, 0.5, 0.5),
+                                         (0.5, 0.5, 0.5)))
         return transforms.Compose(transform_list)
 
     def _add_dataset(self, root, filenames=None, metadata=None):
