@@ -341,7 +341,7 @@ class BaseDataset(data.Dataset):
             for idx in range(len(data[data_type])):
                 if data[data_type][idx].dtype == np.uint16:
                     data[data_type][idx] = data[data_type][idx].astype(
-                        np.float32)
+                        np.float32) / 65535.0
                 data[data_type][idx] = self.transform[data_type](
                     data[data_type][idx])
         return data
